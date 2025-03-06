@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ book.title }} - O‘chirish</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+            text-align: center;
+        }
+
+        header {
+            background-color: #e74c3c;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            width: 50%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .warning {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        .book-image {
+            width: 200px;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            margin: 10px auto;
+            border-radius: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+        }
+
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .cancel-btn {
+            background-color: #4CAF50;
+        }
+
+        .cancel-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🗑 {{ book.title }} - O‘chirish</h1>
+    </header>
+
+    <div class="container">
+        <p class="warning">Siz haqiqatdan ham "{{ book.title }}" kitobini o‘chirmoqchimisiz?</p>
+        
+        {% if book.image and book.image.url %}
+        <img src="{{ book.image.url }}" alt="{{ book.title }}" width="200" />
+        {% else %}
+        <img src="/static/default.jpg" alt="No image available" width="200" />
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn delete-btn">O‘chirish</button>
+            <a href="{% url 'detail' book.id %}" class="btn cancel-btn">Orqaga</a>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Kitoblar Do'koni | Barcha huquqlar himoyalangan.</p>
+    </footer>
+</body>
+</html>
