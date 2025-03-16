@@ -5,7 +5,7 @@ from .forms import BookForm
 class Home(View):
     def get(self, request):
         books = Book.objects.all()
-        return render(request, 'home.html', {'books': books})
+        return render(request, 'home.html', {'book': books})
 
 class BookDetail(View):
     def get(self, request, book_id):
